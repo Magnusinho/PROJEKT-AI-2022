@@ -1,0 +1,714 @@
+package com.sample
+ 
+import static com.sample.DroolsTest.GUI;
+import static com.sample.DroolsTest.finalGUI;
+import javax.swing.JOptionPane;
+
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+
+
+declare Answer
+    answer: int
+end
+
+declare Question
+    question: String
+end
+
+
+rule "init"
+when
+then
+    insert(new Question("Are you from Japan?"));
+    insert(new Answer(2));
+end
+
+rule "AskQuestion"
+when
+    question: Question()
+    answer: Answer()
+    Answer(answer == 2)
+then                 
+    int n = GUI(question.getQuestion());
+    modify(answer){setAnswer(n)};
+end
+
+
+
+rule "Yes: Are you from Japan?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you from Japan?")
+then
+    finalGUI("Daikon");
+end
+
+rule "No: Are you from Japan?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you from Japan?")
+then
+    q.setQuestion("Do you miss meat?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you miss meat?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you miss meat?")
+then
+    finalGUI("Mushrooms, eggplant");
+end
+
+rule "No: Do you miss meat?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you miss meat?")
+then
+    q.setQuestion("Is it summer?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Is it summer?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Is it summer?")
+then
+    finalGUI("cantaloupe, gallia melon, watermelon");
+end
+
+rule "No: Is it summer?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Is it summer?")
+then
+    q.setQuestion("Is it Thanksgiving?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Is it Thanksgiving?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Is it Thanksgiving?")
+then
+    finalGUI("sweet potatoes, cranberries");
+end
+
+rule "No: Is it Thanksgiving?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Is it Thanksgiving?")
+then
+    q.setQuestion("Do you mind your pee smelling of sulfur?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "No: Do you mind your pee smelling of sulfur?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you mind your pee smelling of sulfur?")
+then
+    finalGUI("Asparagus");
+end
+
+rule "Yes: Do you mind your pee smelling of sulfur?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you mind your pee smelling of sulfur?")
+then
+    q.setQuestion("Is it Halloween?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Is it Halloween?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Is it Halloween?")
+then
+    finalGUI("Pumpkin");
+end
+
+rule "No: Is it Halloween?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Is it Halloween?")
+then
+    q.setQuestion("Do you have poor eyesight?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you have poor eyesight?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you have poor eyesight?")
+then
+    finalGUI("Carrot");
+end
+
+rule "No: Do you have poor eyesight?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you have poor eyesight?")
+then
+    q.setQuestion("Are you doing Mexican night?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you doing Mexican night?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you doing Mexican night?")
+then
+    finalGUI("Chilli, coriander, bell pepper, avocado");
+end
+
+rule "No: Are you doing Mexican night?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you doing Mexican night?")
+then
+    q.setQuestion("Are you in the deep South?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you in the deep South?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you in the deep South?")
+then
+    finalGUI("Savoy cabbage, okra");
+end
+
+rule "No: Are you in the deep South?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you in the deep South?")
+then
+    q.setQuestion("Are you Popeye?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you Popeye?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you Popeye?")
+then
+    finalGUI("Spinach");
+end
+
+rule "No: Are you Popeye?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you Popeye?")
+then
+    q.setQuestion("Is the Corona in your cart?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Is the Corona in your cart?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Is the Corona in your cart?")
+then
+    finalGUI("Lime");
+end
+
+rule "No: Is the Corona in your cart?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Is the Corona in your cart?")
+then
+    q.setQuestion("Are you trying to keep the doctor away?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you trying to keep the doctor away?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you trying to keep the doctor away?")
+then
+    finalGUI("Apple");
+end
+
+rule "No: Are you trying to keep the doctor away?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you trying to keep the doctor away?")
+then
+    q.setQuestion("Will you blame it on the dog?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Will you blame it on the dog?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Will you blame it on the dog?")
+then
+    finalGUI("Cabbage, radish, cauliflower");
+end
+
+rule "No: Will you blame it on the dog?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Will you blame it on the dog?")
+then
+    q.setQuestion("Are you chef?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you chef?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you chef?")
+then
+    finalGUI("Onion, ginger, dill, bay leaf, rosemary");
+end
+
+rule "No: Are you chef?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you chef?")
+then
+    q.setQuestion("Do you like the of dirt?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you like the of dirt?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you like the of dirt?")
+then
+    finalGUI("Beetroot");
+end
+
+rule "No: Do you like the of dirt?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you like the of dirt?")
+then
+    q.setQuestion("Do you like mayonnaise?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you like mayonnaise?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you like mayonnaise?")
+then
+    finalGUI("Asparagus");
+end
+
+rule "No: Do you like mayonnaise?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you like mayonnaise?")
+then
+    q.setQuestion("Do you need to get regular?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you need to get regular?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you need to get regular?")
+then
+    finalGUI("Prune");
+end
+
+rule "No: Do you need to get regular?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you need to get regular?")
+then
+    q.setQuestion("Are you in Hawaii?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you in Hawaii?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you in Hawaii?")
+then
+    finalGUI("Coconut");
+end
+
+rule "No: Are you in Hawaii?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you in Hawaii?")
+then
+    q.setQuestion("Are you a Simpson?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you a Simpson?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you a Simpson?")
+then
+    finalGUI("Bucket of tomatoes");
+end
+
+rule "No: Are you a Simpson?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you a Simpson?")
+then
+    q.setQuestion("Are you trying to lose a couple dress size?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you trying to lose a couple dress size?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you trying to lose a couple dress size?")
+then
+    finalGUI("Grapefruit, potatoes, celery");
+end
+
+rule "No: Are you trying to lose a couple dress size?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you trying to lose a couple dress size?")
+then
+    q.setQuestion("Is your mom cooking?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Is your mom cooking?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Is your mom cooking?")
+then
+    q.setQuestion("Is she trying to look like the good mom?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+rule "No: Is your mom cooking?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Is your mom cooking?")
+then
+    q.setQuestion("Are you making a smoothie?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+rule "Yes: Is she trying to look like the good mom?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Is she trying to look like the good mom?")
+then
+    finalGUI("Brussels sprouts, broccolis");
+end
+
+rule "No: Is she trying to look like the good mom?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Is she trying to look like the good mom?")
+then
+    finalGUI("grean peas, potatoes");
+end
+
+rule "Yes: Are you making a smoothie?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you making a smoothie?")
+then
+    finalGUI("Kiwi, raspberries, blueberries, blackberries");
+end
+
+rule "No: Are you making a smoothie?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you making a smoothie?")
+then
+    q.setQuestion("Do you own a juicer?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you own a juicer?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you own a juicer?")
+then
+    finalGUI("Oranges, papayas, pineapples, passion fruits");
+end
+
+rule "No: Do you own a juicer?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you own a juicer?")
+then
+    q.setQuestion("Do you believe the hype?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you believe the hype?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you believe the hype?")
+then
+    finalGUI("Pomegranates, european blueberries");
+end
+
+rule "No: Do you believe the hype?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you believe the hype?")
+then
+    q.setQuestion("Are you nearing the end of your life?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you nearing the end of your life?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you nearing the end of your life?")
+then
+    finalGUI("Power Up Mushroom");
+end
+
+rule "No: Are you nearing the end of your life?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you nearing the end of your life?")
+then
+    q.setQuestion("Do you watch the Food Network?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you watch the Food Network?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you watch the Food Network?")
+then
+    finalGUI("Onions, garlics, green onions, hen mushroom");
+end
+
+rule "No: Do you watch the Food Network?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you watch the Food Network?")
+then
+    q.setQuestion("Do you need a quick snack?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you need a quick snack?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you need a quick snack?")
+then
+    finalGUI("Bananas, peaches, clementines, mirabelles, pears, greengages");
+end
+
+rule "No: Do you need a quick snack?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you need a quick snack?")
+then
+    q.setQuestion("Are you with a date?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you with a date?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you with a date?")
+then
+    finalGUI("Strawberries, grapes, cherries, mangoes,");
+end
+
+rule "No: Are you with a date?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you with a date?")
+then
+    q.setQuestion("Do you know what these are?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you know what these are?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you know what these are?")
+then
+    finalGUI("Rhubarb, root parsley");
+end
+
+rule "No: Do you know what these are?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you know what these are?")
+then
+    q.setQuestion("Do you wan the best fruit in the world?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you wan the best fruit in the world?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you wan the best fruit in the world?")
+then
+    finalGUI("Passion fruit");
+end
+
+rule "No: Do you wan the best fruit in the world?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you wan the best fruit in the world?")
+then
+    q.setQuestion("Do you want the best vegetable in the world?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Do you want the best vegetable in the world?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Do you want the best vegetable in the world?")
+then
+    finalGUI("Corn");
+end
+
+rule "No: Do you want the best vegetable in the world?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Do you want the best vegetable in the world?")
+then
+    q.setQuestion("Are you a entrepreneuring youth?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you a entrepreneuring youth?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you a entrepreneuring youth?")
+then
+    finalGUI("Lemon");
+end
+
+rule "No: Are you a entrepreneuring youth?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you a entrepreneuring youth?")
+then
+    q.setQuestion("Are you making pasta sauce?");
+    a.setAnswer(2);
+    update(q);
+    update(a);
+end
+
+
+rule "Yes: Are you making pasta sauce?"
+when
+    a:Answer(answer == 0)
+    q:Question(question == "Are you making pasta sauce?")
+then
+    finalGUI("Mushrooms, basil, tomatoes");
+end
+
+rule "No: Are you making pasta sauce?"
+when
+    a:Answer(answer == 1)
+    q:Question(question == "Are you making pasta sauce?")
+then
+    finalGUI("Zucchinis, cabbage, cucumber, green peas");
+end
+
+
